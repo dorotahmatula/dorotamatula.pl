@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* Brand Colors */
+  --color-brand-cobalt: var(--brand-cobalt);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-beige: var(--brand-beige);
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "Merriweather", serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+}
+
+:root {
+  /* HSL Values */
+  --brand-cobalt: hsl(243 91% 33%); /* #0e05a2 */
+  --brand-pink: hsl(330 100% 80%); /* #ff99cc */
+  --brand-orange: hsl(15 100% 60%); /* #ff6634 */
+  --brand-purple: hsl(245 73% 66%); /* #756ae9 */
+  --brand-beige: hsl(50 33% 95%); /* #f7f5eb */
+
+  --background: var(--brand-beige);
+  --foreground: var(--brand-cobalt);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-brand-pink selection:text-brand-cobalt;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold tracking-tight;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
