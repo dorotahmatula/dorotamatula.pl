@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 
 const EBOOK_LINK = "https://drive.google.com/file/d/17WGG-CmX8zmW2CalScwhFU0ryf-ZN93B/view?usp=sharing";
 const EXCEL_LINK = "https://docs.google.com/spreadsheets/d/118-JKUgk_l23QbEKP7OwtuJcPl4WBm-G_bazF2lWeRc/edit?usp=sharing";
+const MAILERLITE_SUBSCRIBE_URL =
+  "https://assets.mailerlite.com/jsonp/2105071/forms/184110745195119824/subscribe";
 
 export default function CheckoutSuccess() {
   const [email, setEmail] = useState("");
@@ -17,13 +19,17 @@ export default function CheckoutSuccess() {
 
     setNewsletterStatus("loading");
     try {
-      const res = await fetch("/api/newsletter", {
+      const body = new FormData();
+      body.append("fields[email]", email.trim());
+      body.append("ml-submit", "1");
+      body.append("anticsrf", "true");
+
+      const res = await fetch(MAILERLITE_SUBSCRIBE_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body,
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Błąd zapisu");
+
+      if (!res.ok) throw new Error("Błąd zapisu");
       setNewsletterStatus("success");
     } catch (err: any) {
       setErrorMsg(err.message);

@@ -16,6 +16,8 @@ import waveBlue from "@/assets/shape-wave-blue.png";
 import shapeFlower from "@/assets/shape-flower.png";
 import checkers from "@/assets/shape-checkers.png";
 
+const MAILERLITE_SUBSCRIBE_URL =
+  "https://assets.mailerlite.com/jsonp/2105071/forms/184110745195119824/subscribe";
 
 const ebookPages = Array.from({ length: 10 }, (_, i) => `/ebook-pages/page-${String(i + 1).padStart(2, '0')}.png`);
 const fadeIn = {
@@ -859,13 +861,17 @@ export default function Home() {
                   setNewsletterLoading(true);
                   setNewsletterError("");
                   try {
-                    const res = await fetch("/api/newsletter", {
+                    const body = new FormData();
+                    body.append("fields[email]", newsletterEmail.trim());
+                    body.append("ml-submit", "1");
+                    body.append("anticsrf", "true");
+
+                    const res = await fetch(MAILERLITE_SUBSCRIBE_URL, {
                       method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ email: newsletterEmail }),
+                      body,
                     });
-                    const data = await res.json();
-                    if (!res.ok) throw new Error(data.error || "Coś poszło nie tak");
+
+                    if (!res.ok) throw new Error("Coś poszło nie tak");
                     setNewsletterSuccess(true);
                   } catch (err: any) {
                     setNewsletterError(err.message || "Nie udało się zapisać. Spróbuj ponownie.");
