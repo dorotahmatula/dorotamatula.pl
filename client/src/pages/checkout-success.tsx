@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowLeft, FileText, Table, Instagram, Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackMetaEventOncePerSession } from "@/lib/meta-pixel";
 
 const EBOOK_LINK = "https://drive.google.com/file/d/17WGG-CmX8zmW2CalScwhFU0ryf-ZN93B/view?usp=sharing";
 const EXCEL_LINK = "https://docs.google.com/spreadsheets/d/118-JKUgk_l23QbEKP7OwtuJcPl4WBm-G_bazF2lWeRc/edit?usp=sharing";
 const MAILERLITE_SUBSCRIBE_URL =
   "https://assets.mailerlite.com/jsonp/2105071/forms/184110745195119824/subscribe";
+const EBOOK_PRICE = 29.99;
+const EBOOK_CURRENCY = "PLN";
 
 export default function CheckoutSuccess() {
   const [email, setEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    trackMetaEventOncePerSession("purchase-ebook", "Purchase", {
+      content_name: "Ciąża, poród, połóg",
+      content_category: "ebook",
+      content_type: "product",
+      currency: EBOOK_CURRENCY,
+      value: EBOOK_PRICE,
+      num_items: 1,
+    });
+  }, []);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

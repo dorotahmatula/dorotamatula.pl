@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Check, Heart, BookOpen, Star, HelpCircle, Gift, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackMetaCustomEvent, trackMetaEvent } from "@/lib/meta-pixel";
 import {
   Accordion,
   AccordionContent,
@@ -172,6 +173,8 @@ function TestimonialsCarousel() {
 
 export default function Home() {
   const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/8x2dR9espcQD0eugk814400";
+  const EBOOK_PRICE = 29.99;
+  const EBOOK_CURRENCY = "PLN";
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -214,6 +217,25 @@ export default function Home() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleBuyEbookClick = (placement: "hero" | "final-cta") => {
+    trackMetaCustomEvent("ClickKupEbooka", {
+      button_name: "Kup ebooka",
+      placement,
+    });
+    scrollToPricing();
+  };
+
+  const handleInitiateCheckout = () => {
+    trackMetaEvent("InitiateCheckout", {
+      content_name: "Ciąża, poród, połóg",
+      content_category: "ebook",
+      content_type: "product",
+      currency: EBOOK_CURRENCY,
+      value: EBOOK_PRICE,
+      num_items: 1,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-brand-beige overflow-x-hidden font-sans text-brand-cobalt">
       {/* 1. Hero Section */}
@@ -241,7 +263,7 @@ export default function Home() {
             Konkretne decyzje, kontekst i sprawdzone polecenia - spisane z mojego doświadczenia i rozmów z mądrymi specjalistkami.</motion.p>
             <motion.div variants={fadeIn} className="pt-4">
               <Button 
-                onClick={scrollToPricing}
+                onClick={() => handleBuyEbookClick("hero")}
                 size="lg" 
                 className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
               >
@@ -814,6 +836,7 @@ export default function Home() {
                 href={STRIPE_PAYMENT_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleInitiateCheckout}
                 data-testid="button-checkout"
               >
                 <Button
@@ -952,7 +975,7 @@ export default function Home() {
             Wystarczy, że wiesz, to co naprawdę ma znaczenie.
           </h2>
           <Button 
-            onClick={scrollToPricing}
+            onClick={() => handleBuyEbookClick("final-cta")}
             size="lg" 
             className="bg-brand-orange hover:bg-white hover:text-brand-orange text-white border-2 border-brand-orange transition-colors rounded-full px-10 py-6 text-lg shadow-xl"
           >
