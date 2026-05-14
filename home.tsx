@@ -170,6 +170,7 @@ function TestimonialsCarousel() {
 
 export default function Home() {
   const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/8x2dR9espcQD0eugk814400";
+  const AMAZON_BOOK_LINK = "https://www.amazon.pl/Ci%C4%85%C5%BCa-por%C3%B3d-pol%C3%B3g-chcialabym-wcze%C5%9Bniej/dp/B0H183C5JK/ref=sr_1_2?__mk_pl_PL=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=16HA0WIKDTZCY&dib=eyJ2IjoiMSJ9.Po6GEiQSWueWEN6uQpFo_xfwfsymFlooePwKcuUdJasl-a79yeMa5IF-SynPOB4R8I8g4FX024YbVNSPhnea23ZWNGkp3O6YeGtYspcNqX1V1IklRE2WOr5ex4UHML-HmTc-2E5Ec2QzWSoe65M41qz8VOBWE0hpaY6U9N4I7Lg8M_hJQL85NIH4dqcy-xrTsKxfj0tqq_oZbl2BhBtHZ_SLs9ku11s4DekDaiQXKdZDfeW5Vi74n4UBnTMj0BQwQxnf_nM87vYG0zdqfOugADmFBa40FHykqV_O1L-JT6g.xIWNOZMqg7RCxE9d_o7ND7_ePCCOoaMnfqgFOjks6Fs&dib_tag=se&keywords=ci%C4%85%C5%BCa+por%C3%B3d&qid=1778775746&sprefix=ci%C4%85%C5%BCa+por%C3%B3d%2Caps%2C114&sr=8-2";
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -772,58 +773,112 @@ export default function Home() {
       </section>
       {/* 8. Oferta */}
       <section id="pricing" className="py-20 px-4 bg-brand-beige relative text-center">
-        <div className="container max-w-lg mx-auto">
-          <div className="bg-white rounded-[3rem] shadow-2xl p-10 border-2 border-brand-purple overflow-hidden relative">
-            <div className="absolute top-0 right-0 bg-brand-orange text-white px-6 py-2 text-sm font-bold rounded-bl-2xl">
-              OFERTA FIRST MINUTE
-            </div>
-            
-            <h3 className="text-3xl font-serif font-bold text-brand-cobalt mb-2">Kup ebooka</h3>
-            <p className="text-brand-cobalt/60 mb-8">Ebook (PDF) + BONUS: Excel wyprawkowy</p>
-            
-            <div className="flex justify-center items-center gap-4 mb-6">
-              <span className="text-xl text-brand-cobalt/40 line-through">45,99 zł</span>
-              <span className="text-5xl font-bold text-brand-pink tracking-tight">29,99 zł</span>
+        <div className="container max-w-5xl mx-auto">
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div className="bg-white rounded-[3rem] shadow-2xl p-10 border-2 border-brand-purple overflow-hidden relative flex flex-col">
+              <div className="absolute top-0 right-0 bg-brand-orange text-white px-6 py-2 text-sm font-bold rounded-bl-2xl">
+                OFERTA FIRST MINUTE
+              </div>
+
+              <h3 className="text-3xl font-serif font-bold text-brand-cobalt mb-2">Kup ebooka</h3>
+              <p className="text-brand-cobalt/60 mb-8">Ebook (PDF) + BONUS: Excel wyprawkowy</p>
+
+              <div className="flex justify-center items-center gap-4 mb-6">
+                <span className="text-xl text-brand-cobalt/40 line-through">45,99 zł</span>
+                <span className="text-5xl font-bold text-brand-pink tracking-tight">29,99 zł</span>
+              </div>
+
+              <div className="space-y-4 text-left bg-brand-beige/30 p-6 rounded-2xl mb-8 border border-brand-purple/5">
+                <div className="flex items-start gap-3">
+                  <div className="bg-brand-purple/10 p-1 rounded-full mt-1">
+                    <Check className="w-4 h-4 text-brand-purple" />
+                  </div>
+                  <p className="text-sm"><strong>80 stron konkretów</strong> w jasnym podziale</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="bg-brand-orange/10 p-1 rounded-full mt-1">
+                    <Check className="w-4 h-4 text-brand-orange" />
+                  </div>
+                  <p className="text-sm"><strong>Bonus: Excel wyprawkowy</strong> – linki do sklepów, kontekst</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="bg-brand-pink/10 p-1 rounded-full mt-1">
+                    <Check className="w-4 h-4 text-brand-pink" />
+                  </div>
+                  <p className="text-sm"><strong>Wskazówki decyzyjne</strong> i wyselekcjonowane polecenia</p>
+                </div>
+              </div>
+
+              <div className="space-y-3 mt-auto">
+                <a
+                  href={STRIPE_PAYMENT_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="button-checkout"
+                >
+                  <Button
+                    size="lg"
+                    className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full py-7 text-xl shadow-lg transition-transform hover:scale-[1.02] active:scale-95"
+                  >
+                    Kup teraz i pobierz pliki
+                  </Button>
+                </a>
+              </div>
+
+              <p className="text-xs text-brand-cobalt/40 mt-6">Natychmiastowy dostęp po zaksięgowaniu płatności.</p>
             </div>
 
-            <div className="space-y-4 text-left bg-brand-beige/30 p-6 rounded-2xl mb-8 border border-brand-purple/5">
-              <div className="flex items-start gap-3">
-                <div className="bg-brand-purple/10 p-1 rounded-full mt-1">
-                  <Check className="w-4 h-4 text-brand-purple" />
-                </div>
-                <p className="text-sm"><strong>80 stron konkretów</strong> w jasnym podziale</p>
+            <div className="bg-white rounded-[3rem] shadow-2xl p-10 border-2 border-brand-purple/40 overflow-hidden relative flex flex-col">
+              <div className="absolute top-0 right-0 bg-brand-orange text-white px-6 py-2 text-sm font-bold rounded-bl-2xl">
+                NA DZIEŃ MAMY
               </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-brand-orange/10 p-1 rounded-full mt-1">
-                  <Check className="w-4 h-4 text-brand-orange" />
-                </div>
-                <p className="text-sm"><strong>Bonus: Excel wyprawkowy</strong> – linki do sklepów, kontekst</p>
+
+              <h3 className="text-3xl font-serif font-bold text-brand-cobalt mb-2">Kup książkę</h3>
+              <p className="text-brand-cobalt/60 mb-8">Wersja papierowa + QR code do listy wyprawkowej</p>
+
+              <div className="flex justify-center items-center mb-6">
+                <span className="text-5xl font-bold text-brand-pink tracking-tight">34,99 zł</span>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-brand-pink/10 p-1 rounded-full mt-1">
-                  <Check className="w-4 h-4 text-brand-pink" />
+
+              <div className="space-y-4 text-left bg-brand-beige/30 p-6 rounded-2xl mb-8 border border-brand-purple/5">
+                <div className="flex items-start gap-3">
+                  <div className="bg-brand-purple/10 p-1 rounded-full mt-1">
+                    <Check className="w-4 h-4 text-brand-purple" />
+                  </div>
+                  <p className="text-sm"><strong>Ponad 100 stron konkretów</strong></p>
                 </div>
-                <p className="text-sm"><strong>Wskazówki decyzyjne</strong> i wyselekcjonowane polecenia</p>
+                <div className="flex items-start gap-3">
+                  <div className="bg-brand-orange/10 p-1 rounded-full mt-1">
+                    <Check className="w-4 h-4 text-brand-orange" />
+                  </div>
+                  <p className="text-sm"><strong>Poręczny format</strong></p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="bg-brand-pink/10 p-1 rounded-full mt-1">
+                    <Check className="w-4 h-4 text-brand-pink" />
+                  </div>
+                  <p className="text-sm"><strong>Szybka i darmowa wysyłka</strong> z Amazon Prime</p>
+                </div>
               </div>
-            </div>
-            
-            <div className="space-y-3">
-              <a
-                href={STRIPE_PAYMENT_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="button-checkout"
-              >
-                <Button
-                  size="lg"
-                  className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full py-7 text-xl shadow-lg transition-transform hover:scale-[1.02] active:scale-95"
+
+              <div className="space-y-3 mt-auto">
+                <a
+                  href={AMAZON_BOOK_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="button-book-amazon"
                 >
-                  Kup teraz i pobierz pliki
-                </Button>
-              </a>
+                  <Button
+                    size="lg"
+                    className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full py-7 text-xl shadow-lg transition-transform hover:scale-[1.02] active:scale-95"
+                  >
+                    Kup teraz książkę
+                  </Button>
+                </a>
+              </div>
+
+              <p className="text-xs text-brand-cobalt/40 mt-6">Wysyłka i dostępność zgodnie z ofertą Amazon.</p>
             </div>
-            
-            <p className="text-xs text-brand-cobalt/40 mt-6">Natychmiastowy dostęp po zaksięgowaniu płatności.</p>
           </div>
         </div>
       </section>
