@@ -244,7 +244,7 @@ export default function Home() {
                 size="lg" 
                 className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
               >
-                Kup ebooka
+                Kup ebooka lub książkę
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
