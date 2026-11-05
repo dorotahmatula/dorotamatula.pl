@@ -8,7 +8,7 @@ const EBOOK_LINK = "https://drive.google.com/file/d/17WGG-CmX8zmW2CalScwhFU0ryf-
 const EXCEL_LINK = "https://docs.google.com/spreadsheets/d/118-JKUgk_l23QbEKP7OwtuJcPl4WBm-G_bazF2lWeRc/edit?usp=sharing";
 const MAILERLITE_SUBSCRIBE_URL =
   "https://assets.mailerlite.com/jsonp/2105071/forms/184110745195119824/subscribe";
-const EBOOK_PRICE = 29.99;
+const EBOOK_PRICE = 19.99;
 const EBOOK_CURRENCY = "PLN";
 
 export default function CheckoutSuccess() {

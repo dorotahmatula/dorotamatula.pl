@@ -172,9 +172,9 @@ function TestimonialsCarousel() {
 }
 
 export default function Home() {
-  const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/8x2dR9espcQD0eugk814400";
+  const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/14AbJ10Bz7wj2mC1pe14401";
   const AMAZON_BOOK_LINK = "https://www.amazon.pl/Ci%C4%85%C5%BCa-por%C3%B3d-pol%C3%B3g-chcialabym-wcze%C5%9Bniej/dp/B0H183C5JK/ref=sr_1_2?__mk_pl_PL=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=16HA0WIKDTZCY&dib=eyJ2IjoiMSJ9.Po6GEiQSWueWEN6uQpFo_xfwfsymFlooePwKcuUdJasl-a79yeMa5IF-SynPOB4R8I8g4FX024YbVNSPhnea23ZWNGkp3O6YeGtYspcNqX1V1IklRE2WOr5ex4UHML-HmTc-2E5Ec2QzWSoe65M41qz8VOBWE0hpaY6U9N4I7Lg8M_hJQL85NIH4dqcy-xrTsKxfj0tqq_oZbl2BhBtHZ_SLs9ku11s4DekDaiQXKdZDfeW5Vi74n4UBnTMj0BQwQxnf_nM87vYG0zdqfOugADmFBa40FHykqV_O1L-JT6g.xIWNOZMqg7RCxE9d_o7ND7_ePCCOoaMnfqgFOjks6Fs&dib_tag=se&keywords=ci%C4%85%C5%BCa+por%C3%B3d&qid=1778775746&sprefix=ci%C4%85%C5%BCa+por%C3%B3d%2Caps%2C114&sr=8-2";
-  const EBOOK_PRICE = 29.99;
+  const EBOOK_PRICE = 19.99;
   const EBOOK_CURRENCY = "PLN";
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -801,16 +801,17 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="bg-white rounded-[3rem] shadow-2xl p-10 border-2 border-brand-purple overflow-hidden relative flex flex-col">
               <div className="absolute top-0 right-0 bg-brand-orange text-white px-6 py-2 text-sm font-bold rounded-bl-2xl">
-                OFERTA FIRST MINUTE
+                BLACK FRIDAY
               </div>
 
               <h3 className="text-3xl font-serif font-bold text-brand-cobalt mb-2">Kup ebooka</h3>
               <p className="text-brand-cobalt/60 mb-8">Ebook (PDF) + BONUS: Excel wyprawkowy</p>
 
-              <div className="flex justify-center items-center gap-4 mb-6">
-                <span className="text-xl text-brand-cobalt/40 line-through">45,99 zł</span>
-                <span className="text-5xl font-bold text-brand-pink tracking-tight">29,99 zł</span>
+              <div className="flex justify-center items-center gap-4 mb-2">
+                <span className="text-xl text-brand-cobalt/40 line-through">29,99 zł</span>
+                <span className="text-5xl font-bold text-brand-pink tracking-tight">19,99 zł</span>
               </div>
+              <p className="text-xs text-brand-cobalt/50 mb-6">Najniższa cena z 30 dni przed obniżką: 29,99 zł</p>
 
               <div className="space-y-4 text-left bg-brand-beige/30 p-6 rounded-2xl mb-8 border border-brand-purple/5">
                 <div className="flex items-start gap-3">
@@ -854,10 +855,6 @@ export default function Home() {
             </div>
 
             <div className="bg-white rounded-[3rem] shadow-2xl p-10 border-2 border-brand-purple/40 overflow-hidden relative flex flex-col">
-              <div className="absolute top-0 right-0 bg-brand-orange text-white px-6 py-2 text-sm font-bold rounded-bl-2xl">
-                NA DZIEŃ MAMY
-              </div>
-
               <h3 className="text-3xl font-serif font-bold text-brand-cobalt mb-2">Kup książkę</h3>
               <p className="text-brand-cobalt/60 mb-8">Wersja papierowa + QR code do listy wyprawkowej</p>
 
