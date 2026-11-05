@@ -4,7 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-  "build": "vite build"
+  "build": "vite build && vite build --ssr src/entry-server.tsx --outDir ../dist/server --emptyOutDir && node scripts/prerender.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

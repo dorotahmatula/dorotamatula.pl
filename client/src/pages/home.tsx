@@ -218,12 +218,25 @@ export default function Home() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleBuyEbookClick = (placement: "hero" | "final-cta") => {
+  const [showStickyBuy, setShowStickyBuy] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const pricing = document.getElementById("pricing");
+      const r = pricing?.getBoundingClientRect();
+      const pricingVisible = !!r && r.top < window.innerHeight && r.bottom > 0;
+      setShowStickyBuy(window.scrollY > 700 && !pricingVisible);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleBuyEbookClick = (placement: "hero" | "final-cta" | "sticky", scroll = true) => {
     trackMetaCustomEvent("ClickKupEbooka", {
       button_name: "Kup ebooka",
       placement,
     });
-    scrollToPricing();
+    if (scroll) scrollToPricing();
   };
 
   const handleInitiateCheckout = () => {
@@ -262,15 +275,38 @@ export default function Home() {
             </motion.h1>
             <motion.p variants={fadeIn} className="text-lg md:text-xl text-brand-cobalt/80 max-w-lg mx-auto md:mx-0">Przewodnik, który sama chciałabym dostać w ciąży.
             Konkretne decyzje, kontekst i sprawdzone polecenia - spisane z mojego doświadczenia i rozmów z mądrymi specjalistkami.</motion.p>
-            <motion.div variants={fadeIn} className="pt-4">
-              <Button 
-                onClick={() => handleBuyEbookClick("hero")}
-                size="lg" 
-                className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+            <motion.div variants={fadeIn} className="pt-4 space-y-3">
+              <a
+                href={STRIPE_PAYMENT_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => { handleBuyEbookClick("hero", false); handleInitiateCheckout(); }}
+                data-testid="button-hero-checkout"
+                className="inline-block"
               >
-                Kup ebooka lub książkę
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-orange hover:bg-brand-orange/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+                >
+                  Kup e-book za 19,99 zł
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </a>
+              <p className="text-sm text-brand-cobalt/70">
+                E-book PDF (80 stron) + Excel wyprawkowy ·{" "}
+                <span className="line-through text-brand-cobalt/40">29,99 zł</span>{" "}
+                <strong className="text-brand-cobalt">19,99 zł w Black Friday</strong>
+              </p>
+              <p className="text-sm">
+                <button type="button" onClick={scrollToPricing} className="text-brand-purple underline underline-offset-4 hover:text-brand-cobalt">
+                  Wolisz wersję papierową? Zobacz książkę
+                </button>
+              </p>
+            </motion.div>
+            <motion.div variants={fadeIn} className="pt-2 max-w-lg mx-auto md:mx-0">
+              <p className="text-sm font-bold text-brand-cobalt">Ma go już ponad 100 mam</p>
+              <p className="mt-2 text-base font-serif italic text-brand-cobalt/80">„Po przeczytaniu tego poradnika mogę powiedzieć jedno - RODZIŁABYM.”</p>
+              <p className="mt-1 text-xs text-brand-cobalt/60">Asia Kuźniacka</p>
             </motion.div>
           </motion.div>
 
@@ -282,7 +318,7 @@ export default function Home() {
           >
             <div className="relative z-10">
                <div className="bg-white p-4 rounded-2xl shadow-2xl rotate-2 max-w-[350px] mx-auto border-8 border-brand-beige">
-                 <img src={coverImg} alt="Okładka ebooka" className="w-full rounded-lg shadow-inner" />
+                 <img src={coverImg} alt="Okładka e-booka Ciąża, poród, połóg. Wszystko, co chciałabym wiedzieć wcześniej – Dorota Matuła" className="w-full rounded-lg shadow-inner" />
                </div>
             </div>
             {/* Decorative background behind book */}
@@ -388,6 +424,26 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+      {/* Opinie */}
+      <section className="py-24 px-4 bg-white relative overflow-hidden">
+        <img src={wavePink} alt="" className="absolute top-8 left-0 w-48 opacity-10 pointer-events-none" />
+        <img src={shapeFlower} alt="" className="absolute bottom-12 right-8 w-20 opacity-15 pointer-events-none" />
+        
+        <div className="container max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-14"
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-cobalt mb-4">Co mówią koleżanki?</h2>
+            <div className="h-1.5 w-24 bg-brand-pink rounded-full mx-auto"></div>
+          </motion.div>
+
+          <TestimonialsCarousel />
         </div>
       </section>
       {/* 4. Dlaczego warto */}
@@ -775,26 +831,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Opinie */}
-      <section className="py-24 px-4 bg-white relative overflow-hidden">
-        <img src={wavePink} alt="" className="absolute top-8 left-0 w-48 opacity-10 pointer-events-none" />
-        <img src={shapeFlower} alt="" className="absolute bottom-12 right-8 w-20 opacity-15 pointer-events-none" />
-        
-        <div className="container max-w-6xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center mb-14"
-          >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-cobalt mb-4">Co mówią koleżanki?</h2>
-            <div className="h-1.5 w-24 bg-brand-pink rounded-full mx-auto"></div>
-          </motion.div>
-
-          <TestimonialsCarousel />
-        </div>
-      </section>
       {/* 8. Oferta */}
       <section id="pricing" className="py-20 px-4 bg-brand-beige relative text-center">
         <div className="container max-w-5xl mx-auto">
@@ -1020,7 +1056,7 @@ export default function Home() {
       </section>
       {/* 10. Final CTA */}
       <section className="py-24 px-4 bg-brand-purple text-white text-center relative overflow-hidden">
-        <img src={wavePink} className="absolute bottom-0 left-0 w-full opacity-20" />
+        <img src={wavePink} alt="" className="absolute bottom-0 left-0 w-full opacity-20" />
         <div className="relative z-10 container max-w-2xl mx-auto space-y-8">
           <h2 className="text-3xl md:text-5xl font-serif font-bold leading-tight">
             Nie musisz wiedzieć wszystkiego.<br/>
@@ -1035,7 +1071,25 @@ export default function Home() {
           </Button>
         </div>
       </section>
-      <footer className="py-8 bg-brand-cobalt text-brand-beige/40 text-center text-sm">
+      {/* Przyklejony przycisk na telefonie */}
+      <div
+        className={`md:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-4 pt-3 bg-gradient-to-t from-brand-beige via-brand-beige/95 to-transparent transition-transform duration-300 ${showStickyBuy ? "translate-y-0" : "translate-y-full"}`}
+        aria-hidden={!showStickyBuy}
+      >
+        <a
+          href={STRIPE_PAYMENT_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={showStickyBuy ? 0 : -1}
+          onClick={() => { handleBuyEbookClick("sticky", false); handleInitiateCheckout(); }}
+          data-testid="button-sticky-checkout"
+          className="flex items-center justify-center gap-2 w-full bg-brand-orange text-white rounded-full py-4 text-base font-bold shadow-lg"
+        >
+          Kup e-book · 19,99 zł
+          <ArrowRight className="h-5 w-5" />
+        </a>
+      </div>
+      <footer className="py-8 pb-28 md:pb-8 bg-brand-cobalt text-brand-beige/40 text-center text-sm">
         <p>© 2026 Dorota Matuła Marketing. Wszystkie prawa zastrzeżone.</p>
         <div className="flex justify-center gap-4 mt-2">
           <a href="/regulamin" className="hover:text-white transition-colors" data-testid="link-regulamin">Regulamin</a>
