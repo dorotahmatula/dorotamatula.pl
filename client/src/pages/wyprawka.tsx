@@ -31,11 +31,11 @@ export default function Wyprawka() {
             Od koleżanki dla koleżanek
           </div>
           <h1 className="text-3xl md:text-4xl font-serif font-bold leading-snug">
-            Tu pobierzesz moją listę wyprawkową
+            Tu pobierz listę wyprawkową
           </h1>
           <p className="text-lg text-brand-cobalt/80 leading-relaxed">
-            Spisałam ją w połogu. Z komentarzem, co jest czym, co się u mnie sprawdziło, a co można spokojnie odpuścić.
-            Weź z niej to, co ma sens dla Ciebie.
+            Spisałam ją w połogu. Z komentarzem: co jest czym, co się u mnie sprawdziło, co kupić przed porodem, co po,
+            a co można spokojnie odpuścić. Weź z niej to, co ma sens dla Ciebie.
           </p>
 
           <a href={EXCEL_LINK} target="_blank" rel="noopener noreferrer" className="inline-block" data-testid="button-wyprawka-excel">
