@@ -10,6 +10,7 @@ import CheckoutSuccess from "@/pages/checkout-success";
 import CheckoutCancel from "@/pages/checkout-cancel";
 import Regulamin from "@/pages/regulamin";
 import PolitykaPrywatnosci from "@/pages/polityka-prywatnosci";
+import Wyprawka from "@/pages/wyprawka";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/checkout/cancel" component={CheckoutCancel} />
       <Route path="/regulamin" component={Regulamin} />
       <Route path="/polityka-prywatnosci" component={PolitykaPrywatnosci} />
+      <Route path="/wyprawka" component={Wyprawka} />
       <Route component={NotFound} />
     </Switch>
   );

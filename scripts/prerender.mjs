@@ -11,6 +11,7 @@ const routes = [
   ["/", "index.html"],
   ["/regulamin", "regulamin.html"],
   ["/polityka-prywatnosci", "polityka-prywatnosci.html"],
+  ["/wyprawka", "wyprawka.html"],
 ];
 for (const [url, file] of routes) {
   const html = render(url);
